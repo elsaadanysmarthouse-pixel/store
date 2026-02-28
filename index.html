@@ -2,302 +2,289 @@
 <html lang="ar">
 <head>
 <meta charset="UTF-8">
-<title>متجر حديث</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>متجر منذر</title>
+
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#ff9800">
 
 <style>
+:root{
+--main-orange:#ff9800;
+--main-orange-dark:#f57c00;
+--card-bg:#1e1e1e;
+}
 body{
-  font-family:Arial;
-  direction:rtl;
-  margin:0;
-  padding:0;
-  background:#f4f4f4;
+margin:0;
+font-family:Tahoma, Arial;
+direction:rtl;
+background:linear-gradient(160deg,#0f0f0f,#1a1a1a);
+color:white;
 }
-
-.section{display:none;padding:20px;}
-
-button{
-  cursor:pointer;
-  border:none;
-  padding:8px 12px;
-  margin:5px;
-  background:#dcdcdc;
-  border-radius:6px;
-  font-weight:bold;
+.header{
+background:linear-gradient(90deg,var(--main-orange),var(--main-orange-dark));
+padding:20px;
+text-align:center;
+font-size:24px;
+font-weight:bold;
+color:black;
 }
-
-input,select{
-  margin:5px;
-  padding:5px;
-  border-radius:5px;
-  border:1px solid #ccc;
+.section{display:none;padding:25px;text-align:center;}
+.bigBtn{
+padding:18px;
+font-size:18px;
+border:none;
+border-radius:14px;
+background:linear-gradient(145deg,var(--main-orange),var(--main-orange-dark));
+color:black;
+font-weight:bold;
+cursor:pointer;
+margin:8px;
+width:90%;
 }
-
+.smallBtn{
+background:var(--main-orange);
+border:none;
+padding:8px 12px;
+margin-top:8px;
+border-radius:8px;
+font-weight:bold;
+cursor:pointer;
+color:black;
+}
+#categories{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
+margin-bottom:20px;
+}
+.categoryBtn{
+background:linear-gradient(145deg,var(--main-orange),var(--main-orange-dark));
+color:black;
+border:none;
+border-radius:20px;
+font-weight:bold;
+cursor:pointer;
+height:120px;
+}
 .product-grid{
-  display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:10px;
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:15px;
 }
-
 .product-card{
-  background:#fff;
-  padding:8px;
-  border-radius:8px;
-  text-align:center;
-  font-size:14px;
-  box-shadow:0 3px 8px rgba(0,0,0,0.1);
+background:var(--card-bg);
+padding:12px;
+border-radius:12px;
 }
-
-.product-img{
-  width:80px;
-  height:80px;
-  object-fit:cover;
-  margin:auto;
-  display:block;
+.product-card img{
+width:100%;
+height:110px;
+object-fit:cover;
+border-radius:8px;
 }
-
-.product-card button{
-  background:#28a745;
-  color:white;
-}
-
-@media(max-width:768px){
-  .product-grid{
-    grid-template-columns:repeat(2,1fr);
-  }
+input,select{
+width:95%;
+padding:10px;
+margin:6px 0;
+border-radius:8px;
+border:none;
+background:#2a2a2a;
+color:white;
 }
 </style>
 </head>
+
 <body>
 
+<div class="header" id="topHeader">🛒 مرحباً بك في متجر منذر</div>
+
+<!-- الصفحة الرئيسية -->
 <div id="home" class="section">
-<h2>اختر نوع الاستخدام</h2>
-<button onclick="showSection('ownerLogin')">صاحب البرنامج</button>
-<button onclick="showSection('customer')">المشتري</button>
-</div>
+<h2>مرحباً بك في متجر منذر</h2>
 
-<div id="ownerLogin" class="section">
-<h2>دخول صاحب البرنامج</h2>
-<input type="password" id="ownerPassword" placeholder="كلمة السر">
-<button onclick="checkPassword()">دخول</button>
-<button onclick="showSection('home')">رجوع</button>
-</div>
+<button class="bigBtn" onclick="showSection('ownerLogin')">
+صاحب البرنامج
+</button>
 
-<div id="owner" class="section">
-<h2>لوحة التحكم</h2>
-
-<input type="text" id="storeName" placeholder="اسم المتجر"><br>
-<input type="text" id="buyerPhone" placeholder="رقم واتساب مصري 011xxxxxxxx"><br>
-
-<h3>إضافة تصنيف</h3>
-<input type="text" id="categoryName">
-<button onclick="addCategory()">إضافة</button>
-<div id="categoryList"></div>
-
-<h3>إضافة منتج</h3>
-<select id="categorySelect"></select><br>
-<input type="text" id="productName" placeholder="اسم المنتج">
-<input type="number" id="productPrice" placeholder="السعر">
-<input type="file" id="productImgFile"><br>
-<img id="productPreview" style="width:80px"><br>
-<button onclick="addProduct()">إضافة المنتج</button>
+<button class="bigBtn" onclick="showSection('customer')">
+المشتري
+</button>
 
 <br><br>
-<button onclick="saveData()">حفظ</button>
-<button onclick="showSection('home')">رجوع</button>
+
+<button id="installBtn" class="bigBtn" style="display:none;">
+تثبيت التطبيق
+</button>
+
 </div>
 
+<!-- تسجيل دخول -->
+<div id="ownerLogin" class="section">
+<h3>دخول صاحب البرنامج</h3>
+<input type="password" id="ownerPassword" placeholder="كلمة السر">
+<button class="bigBtn" onclick="checkPassword()">دخول</button>
+<button class="smallBtn" onclick="showSection('home')">رجوع</button>
+</div>
+
+<!-- لوحة التحكم -->
+<div id="owner" class="section">
+<h3>لوحة التحكم</h3>
+
+<input type="text" id="storeName" placeholder="اسم المتجر">
+<input type="text" id="welcomeText" placeholder="نص الترحيب">
+<input type="text" id="buyerPhone" placeholder="رقم واتساب 01xxxxxxxxx">
+
+<h4>إضافة تصنيف</h4>
+<input type="text" id="categoryName">
+<button class="smallBtn" onclick="addCategory()">إضافة</button>
+
+<h4>إضافة منتج</h4>
+<select id="categorySelect"></select>
+<input type="text" id="productName" placeholder="اسم المنتج">
+<input type="number" id="productPrice" placeholder="السعر">
+<input type="file" id="productImgFile">
+<img id="preview" style="width:80px;margin-top:5px;">
+<button class="smallBtn" onclick="addProduct()">إضافة المنتج</button>
+
+<br><br>
+<button class="bigBtn" onclick="saveData()">حفظ</button>
+<button class="smallBtn" onclick="showSection('home')">رجوع</button>
+</div>
+
+<!-- صفحة المشتري -->
 <div id="customer" class="section">
 <h2 id="custStoreName"></h2>
-
-<h3>التصنيفات</h3>
-<div id="custCategoryList"></div>
-
-<h3>المنتجات</h3>
-<div class="product-grid" id="custProductList"></div>
+<div id="categories"></div>
+<div class="product-grid" id="products"></div>
 
 <h3>السلة</h3>
-<div id="cartList"></div>
-<button onclick="checkout()" style="background:#007bff;color:white">
-إصدار فاتورة وإرسالها واتساب
-</button>
+<div id="cart"></div>
+
+<button class="bigBtn" onclick="checkout()">إرسال الطلب واتساب</button>
 </div>
 
 <script>
-const OWNER_PASSWORD="12345";
 
-let store=JSON.parse(localStorage.getItem('store'))||{
-  name:"متجري",
-  categories:[],
-  buyerPhone:""
+const OWNER_PASSWORD="011507865";
+
+let store=JSON.parse(localStorage.getItem("store"))||{
+name:"متجر منذر",
+welcome:"مرحباً بك في متجر منذر",
+buyerPhone:"",
+categories:[]
 };
 
 let cart=[];
 
 function showSection(id){
-  document.querySelectorAll('.section').forEach(s=>s.style.display='none');
-  document.getElementById(id).style.display='block';
-  if(id==='owner')loadOwner();
-  if(id==='customer')loadCustomer();
+document.querySelectorAll(".section").forEach(s=>s.style.display="none");
+document.getElementById(id).style.display="block";
+if(id==="owner")loadOwner();
+if(id==="customer")loadCustomer();
 }
 
 function checkPassword(){
-  if(document.getElementById('ownerPassword').value===OWNER_PASSWORD){
-    showSection('owner');
-  }else alert("كلمة السر خطأ");
+if(document.getElementById("ownerPassword").value===OWNER_PASSWORD){
+showSection("owner");
+}else alert("كلمة السر خطأ");
 }
 
 function saveData(){
-  const phone=document.getElementById('buyerPhone').value.trim();
-  const pattern=/^(010|011|012|015)\d{8}$/;
-
-  if(!pattern.test(phone)){
-    alert("رقم غير صحيح");
-    return;
-  }
-
-  store.name=document.getElementById('storeName').value;
-  store.buyerPhone=phone;
-  localStorage.setItem('store',JSON.stringify(store));
-  alert("تم الحفظ");
+store.name=document.getElementById("storeName").value;
+store.welcome=document.getElementById("welcomeText").value;
+store.buyerPhone=document.getElementById("buyerPhone").value;
+localStorage.setItem("store",JSON.stringify(store));
+alert("تم الحفظ");
 }
 
 function loadOwner(){
-  document.getElementById('storeName').value=store.name;
-  document.getElementById('buyerPhone').value=store.buyerPhone;
-  updateCategories();
+document.getElementById("storeName").value=store.name;
+document.getElementById("welcomeText").value=store.welcome;
+document.getElementById("buyerPhone").value=store.buyerPhone;
+updateCategories();
 }
 
 function addCategory(){
-  const name=document.getElementById('categoryName').value.trim();
-  if(!name)return;
-  store.categories.push({name:name,products:[]});
-  localStorage.setItem('store',JSON.stringify(store));
-  updateCategories();
+let name=document.getElementById("categoryName").value;
+if(!name)return;
+store.categories.push({name:name,products:[]});
+localStorage.setItem("store",JSON.stringify(store));
+updateCategories();
 }
 
 function updateCategories(){
-  const list=document.getElementById('categoryList');
-  const sel=document.getElementById('categorySelect');
-  list.innerHTML="";
-  sel.innerHTML="";
-  store.categories.forEach((c,i)=>{
-    list.innerHTML+=c.name+"<br>";
-    sel.innerHTML+=`<option value="${i}">${c.name}</option>`;
-  });
+let sel=document.getElementById("categorySelect");
+sel.innerHTML="";
+store.categories.forEach((c,i)=>{
+sel.innerHTML+=`<option value="${i}">${c.name}</option>`;
+});
 }
 
-document.getElementById('productImgFile').addEventListener('change',e=>{
-  const file=e.target.files[0];
-  const reader=new FileReader();
-  reader.onload=ev=>{
-    document.getElementById('productPreview').src=ev.target.result;
-    document.getElementById('productPreview').dataset.src=ev.target.result;
-  };
-  reader.readAsDataURL(file);
+document.getElementById("productImgFile").addEventListener("change",e=>{
+const reader=new FileReader();
+reader.onload=ev=>{
+document.getElementById("preview").src=ev.target.result;
+document.getElementById("preview").dataset.src=ev.target.result;
+}
+reader.readAsDataURL(e.target.files[0]);
 });
 
 function addProduct(){
-  const idx=document.getElementById('categorySelect').value;
-  const name=document.getElementById('productName').value.trim();
-  const price=document.getElementById('productPrice').value;
-  const img=document.getElementById('productPreview').dataset.src;
-
-  if(!name||!price||!img)return alert("املأ كل البيانات");
-
-  store.categories[idx].products.push({
-    name:name,
-    price:parseFloat(price),
-    img:img
-  });
-
-  localStorage.setItem('store',JSON.stringify(store));
-  alert("تمت الإضافة");
+let idx=document.getElementById("categorySelect").value;
+let name=document.getElementById("productName").value;
+let price=document.getElementById("productPrice").value;
+let img=document.getElementById("preview").dataset.src;
+if(!name||!price||!img)return alert("املأ البيانات");
+store.categories[idx].products.push({name,price,img});
+localStorage.setItem("store",JSON.stringify(store));
+alert("تمت الإضافة");
 }
 
 function loadCustomer(){
-  document.getElementById('custStoreName').innerText=store.name;
-  updateCustomerCategories();
-  updateCart();
+document.getElementById("custStoreName").innerText=store.name;
+let catDiv=document.getElementById("categories");
+catDiv.innerHTML="";
+store.categories.forEach((c,i)=>{
+let btn=document.createElement("button");
+btn.className="categoryBtn";
+btn.innerText=c.name;
+btn.onclick=()=>showProducts(i);
+catDiv.appendChild(btn);
+});
 }
 
-function updateCustomerCategories(){
-  const div=document.getElementById('custCategoryList');
-  div.innerHTML="";
-  store.categories.forEach((c,i)=>{
-    const btn=document.createElement('button');
-    btn.textContent=c.name;
-    btn.onclick=()=>showProducts(i);
-    div.appendChild(btn);
-  });
+function showProducts(i){
+let div=document.getElementById("products");
+div.innerHTML="";
+store.categories[i].products.forEach((p)=>{
+div.innerHTML+=`
+<div class="product-card">
+<img src="${p.img}">
+<b>${p.name}</b><br>
+${p.price} ريال<br>
+<button class="smallBtn" onclick="addToCart('${p.name}',${p.price})">أضف</button>
+</div>
+`;
+});
 }
 
-function showProducts(idx){
-  const div=document.getElementById('custProductList');
-  div.innerHTML="";
-  store.categories[idx].products.forEach((p,i)=>{
-    div.innerHTML+=`
-      <div class="product-card">
-        <img src="${p.img}" class="product-img">
-        <b>${p.name}</b><br>
-        ${p.price} ريال<br>
-        <button onclick="addToCart(${idx},${i})">أضف</button>
-      </div>
-    `;
-  });
-}
-
-function addToCart(c,p){
-  let item=cart.find(x=>x.c===c&&x.p===p);
-  if(item)item.qty++;
-  else cart.push({...store.categories[c].products[p],c:c,p:p,qty:1});
-  updateCart();
+function addToCart(name,price){
+cart.push({name,price});
+updateCart();
 }
 
 function updateCart(){
-  const div=document.getElementById('cartList');
-  div.innerHTML="";
-  let total=0;
-  cart.forEach(i=>{
-    total+=i.price*i.qty;
-    div.innerHTML+=`${i.name} × ${i.qty}<br>`;
-  });
-  div.innerHTML+="<b>الإجمالي: "+total+" ريال</b>";
+let div=document.getElementById("cart");
+div.innerHTML="";
+let total=0;
+cart.forEach(i=>{
+total+=parseFloat(i.price);
+div.innerHTML+=i.name+" - "+i.price+" ريال<br>";
+});
+div.innerHTML+="<b>الإجمالي: "+total+" ريال</b>";
 }
 
 function checkout(){
-  if(cart.length===0)return alert("السلة فارغة");
-
-  const invoiceId="INV"+Date.now();
-  const total=cart.reduce((s,p)=>s+p.price*p.qty,0);
-
-  let itemsText="";
-  cart.forEach(item=>{
-    itemsText+=`${item.name} × ${item.qty} = ${item.price*item.qty} ريال\n`;
-  });
-
-  const cleanPhone="20"+store.buyerPhone.substring(1);
-
-  const message=
-`🧾 فاتورة جديدة
------------------------
-المتجر: ${store.name}
-رقم الفاتورة: ${invoiceId}
-التاريخ: ${new Date().toLocaleString()}
------------------------
-${itemsText}
------------------------
-الإجمالي: ${total} ريال`;
-
-  const url=`https://api.whatsapp.com/send?phone=${cleanPhone}&text=${encodeURIComponent(message)}`;
-
-  window.location.href=url;
-
-  cart=[];
-  updateCart();
-}
-
-window.onload=()=>showSection('home');
-</script>
-</body>
-</html>
+if(cart.length===0)return alert("السلة فارغة");
+let total

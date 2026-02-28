@@ -1,7 +1,9 @@
+
 {
   "name": "متجر منذر",
   "short_name": "متجر",
-  "start_url": "index.html",
+  "start_url": "./",
+  "scope": "./",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#ff9800",

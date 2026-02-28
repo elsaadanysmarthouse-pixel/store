@@ -288,3 +288,42 @@ div.innerHTML+="<b>الإجمالي: "+total+" ريال</b>";
 function checkout(){
 if(cart.length===0)return alert("السلة فارغة");
 let total
+  let message="طلب جديد:\n";
+cart.forEach(i=>{
+message+=i.name+" - "+i.price+" ريال\n";
+});
+message+="\nالإجمالي: "+total+" ريال";
+
+let phone=store.buyerPhone;
+if(!phone)return alert("ضع رقم واتساب أولاً");
+
+let url="https://wa.me/2"+phone+"?text="+encodeURIComponent(message);
+window.open(url,"_blank");
+}
+
+showSection("home");
+
+let deferredPrompt;
+const installBtn=document.getElementById("installBtn");
+
+window.addEventListener("beforeinstallprompt", (e)=>{
+e.preventDefault();
+deferredPrompt=e;
+installBtn.style.display="block";
+});
+
+installBtn.addEventListener("click", async ()=>{
+if(deferredPrompt){
+deferredPrompt.prompt();
+deferredPrompt=null;
+installBtn.style.display="none";
+}
+});
+
+if('serviceWorker' in navigator){
+navigator.serviceWorker.register('sw.js');
+}
+</script>
+
+</body>
+</html>

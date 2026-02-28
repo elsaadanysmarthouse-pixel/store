@@ -20,10 +20,33 @@
 ⬇ تثبيت التطبيق
 </button>
 
-<!-- باقي HTML زي ما هو بالظبط -->
-<!-- (انسخ نفس محتوى الصفحة اللي بعته بدون تغيير) -->
+<script>
+let deferredPrompt;
+const installBtn = document.getElementById("installBtn");
 
-<script src="script.js"></script>
+window.addEventListener("beforeinstallprompt", (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = "block";
+});
+
+installBtn.addEventListener("click", async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    if (outcome === "accepted") {
+      console.log("User accepted install");
+    }
+    deferredPrompt = null;
+    installBtn.style.display = "none";
+  }
+});
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("service-worker.js");
+}
+</script>
+
 </body>
 </html>
 
